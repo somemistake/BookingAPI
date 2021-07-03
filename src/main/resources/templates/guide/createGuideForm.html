@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Guide Management System</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div th:replace="~{fragments/navigation :: navigation}"></div>
+<div class="container">
+    <h1>Guide Management System</h1>
+    <hr>
+    <h1>Create Guide</h1>
+    <form action="#" th:action="@{/guides/createGuide}" th:object="${guide}" method="post">
+        <div class="form-group">
+            <input type="hidden" th:field="*{id}"/>
+            <input type="text" th:field="*{name}" placeholder="Enter Name"
+                   class="form-control mb-4 col-4"/>
+            <span th:errors="*{name}" class="error"></span>
+        </div>
+        <button type="submit" class="btn btn-info col-2">Create Guide</button>
+    </form>
+    <hr>
+    <a th:href="@{/guides}">Back to Guides List</a>
+</div>
+</body>
+</html>

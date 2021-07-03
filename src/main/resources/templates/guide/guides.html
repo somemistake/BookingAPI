@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Guide Management System</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div th:replace="~{fragments/navigation :: navigation}"></div>
+<div class="container my-2">
+    <h1>Guide Management System</h1>
+    <hr>
+    <h1>Guides List</h1>
+    <a th:href="@{guides/createGuideForm}" class="btn btn-primary btn-sm mb-3">Add Guide</a>
+    <table border="1" class="table table-striped table-responsive-md">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Services</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="guide : ${guides}">
+            <td th:text="${guide.getId()}"></td>
+            <td th:text="${guide.getName()}"></td>
+            <td><a th:href="@{/guides/editGuideForm/{id}(id=${guide.id})}"
+                   class="btn btn-primary">Edit</a>
+                <a th:href="@{/guides/deleteGuide/{id}(id=${guide.id})}"
+                   class="btn btn-primary">Delete</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <hr>
+</div>
+</body>
+</html>

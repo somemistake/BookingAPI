@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Management System</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div th:replace="~{fragments/navigation :: navigation}"></div>
+<div class="container">
+    <h1>User Management System</h1>
+    <hr>
+    <h1>User Profile</h1>
+    <form action="#" th:action="@{/users/editUserProfile}" th:object="${user}" method="post">
+        <div class="form-group">
+            <input type="hidden" th:field="*{id}"/>
+            <input type="text" th:field="*{firstName}" placeholder="Enter First Name"
+                   class="form-control  mb-4 col-4"/>
+            <span th:errors="*{firstName}" class="error"></span>
+            <input type="text" th:field="*{lastName}" placeholder="Enter Last Name"
+                   class="form-control  mb-4 col-4"/>
+            <span th:errors="*{lastName}" class="error"></span>
+            <input type="text" th:field="*{username}" placeholder="Enter Username"
+                   class="form-control  mb-4 col-4"/>
+            <span th:errors="*{username}" class="error"></span>
+            <input type="text" th:field="*{password}" placeholder="Enter Password"
+                   class="form-control  mb-4 col-4"/>
+            <span th:errors="*{password}" class="error"></span>
+            <input type="hidden" th:field="*{role.id}"/>
+            <input type="hidden" th:field="*{role.name}"/>
+        </div>
+        <button type="submit" class="btn btn-info col-2">Edit User</button>
+    </form>
+</div>
+</body>
+</html>

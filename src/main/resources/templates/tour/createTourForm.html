@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tour Management System</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+    $( function() {
+        $( "#datePickerStart" ).datepicker({ dateFormat: 'yy-mm-dd' }).datepicker('setDate', 'today');
+        $( "#datePickerFinish" ).datepicker({ dateFormat: 'yy-mm-dd' }).datepicker('setDate', 'today');
+    } );
+
+    </script>
+</head>
+
+<body>
+<div th:replace="~{fragments/navigation :: navigation}"></div>
+<div class="container">
+    <h1>Tour Management System</h1>
+    <hr>
+    <h1>Create Tour</h1>
+    <form action="#" th:action="@{/tours/createTour}" th:object="${tour}" method="post">
+        <div class="form-group">
+            <input type="hidden" th:field="*{id}"/>
+            <input type="number" th:field="*{price}" placeholder="Enter Price"
+                   class="form-control mb-4 col-4"/>
+            <span th:errors="*{price}" class="error"></span>
+            <input type="text" th:field="*{difficulty}" placeholder="Enter Difficulty"
+                   class="form-control mb-4 col-4"/>
+            <span th:errors="*{difficulty}" class="error"></span>
+            <div class="input-group date">
+                <input type="text"
+                       id="datePickerStart"
+                       name="tourStart"
+                       placeholder="Tour Start">
+            </div>
+            <br>
+            <div class="input-group date">
+                <input type="text"
+                       id="datePickerFinish"
+                       name="tourFinish"
+                       placeholder="Tour Finish">
+            </div>
+            <br>
+            <select th:field="*{guide.id}" class="form-control mb-4 col-4">
+                <option disabled selected value="">Choose Guide</option>
+                <option th:each="guide : ${guides}"
+                        th:text="${guide.name}"
+                        th:value="${guide.id}"></option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-info col-2">Create Tour</button>
+    </form>
+    <hr>
+    <a th:href="@{/tours}">Back to Tours List</a>
+</div>
+</body>
+</html>

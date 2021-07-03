@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Tour Management System</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div th:replace="~{fragments/navigation :: navigation}"></div>
+<div class="container my-2">
+    <h1>Tour Management System</h1>
+    <hr>
+    <h1>Tours List</h1>
+    <div sec:authorize="hasRole('ADMIN')">
+        <a th:href="@{tours/createTourForm}" class="btn btn-primary btn-sm mb-3">Add Tour</a>
+    </div>
+    <table border="1" class="table table-striped table-responsive-md">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Price</th>
+            <th>Difficulty</th>
+            <th>Start</th>
+            <th>Finish</th>
+            <th>Guide</th>
+            <th>Users</th>
+            <th>Services</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="tour : ${tours}">
+            <td th:text="${tour.getId()}"></td>
+            <td th:text="${tour.getPrice()}"></td>
+            <td th:text="${tour.getDifficulty()}"></td>
+            <td th:text="${tour.getStart()}"></td>
+            <td th:text="${tour.getFinish()}"></td>
+            <td th:text="${tour.getGuide().getName()}"></td>
+            <td>
+                <table>
+                    <tbody>
+                    <tr th:each="user : ${tour.getUsers()}">
+                        <td th:text="${user.getUsername()}"></td>
+                        <td>
+                            <div sec:authorize="hasRole('ADMIN')">
+                                <a th:href="@{/tours/deleteUserFromTour/tour/{tourId}/user/{userId}(tourId=${tour.id}, userId=${user.id})}"
+                                   class="btn btn-primary">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+            <td>
+                <div><a th:href="@{/tours/addUserToTour/{id}(id=${tour.id})}"
+                        class="btn btn-primary">Sign Up</a></div>
+                <div sec:authorize="hasRole('ADMIN')"><a th:href="@{/tours/editTourForm/{id}(id=${tour.id})}"
+                                                         class="btn btn-primary">Edit</a></div>
+                <div sec:authorize="hasRole('ADMIN')"><a th:href="@{/tours/deleteTour/{id}(id=${tour.id})}"
+                                                         class="btn btn-primary">Delete</a></div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <hr>
+</div>
+</body>
+</html>
